@@ -2,6 +2,7 @@ from pwn import remote
 from keypads import Keypads
 from complicated_wires import CWire
 from button import Button
+from wires import Wires
 
 
 def write_output(p, answer_sequence):
@@ -36,7 +37,10 @@ def read_solve_cycle(p, bomb_info) -> int:
             # p.interactive()
         case "Wires":
             print("it is Wires")
-            return -1
+            wire = Wires()
+            answer_sequence = wire.solve(data, bomb_info)
+            print(answer_sequence)
+            write_output(p, answer_sequence)
         case "Button":
             # print("it is Button")
             button = Button()
