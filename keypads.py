@@ -1,37 +1,40 @@
 symbols = "Ѽ æ © Ӭ Ҩ  Ҋ  ϗ  ϰ  Ԇ  Ϙ  Ѯ  ƛ  Ω  ¶  ¿  Ϭ  Ͼ  Ͽ  ҂  Ѣ  Ѭ  Ѧ  Җ  ψ  ټ  ☆ ★"
 
-arrays = [
-    ["Ϙ", "Ѧ", "ƛ", "ϰ", "Ѭ", "ϗ", "Ͽ"],
-    ["Ӭ", "Ϙ", "Ͽ", "Ҩ", "☆", "ϗ", "¿"],
-    ["©", "Ѽ", "Ҩ", "Җ", "Ԇ", "ƛ", "☆"],
-    ["k", "¶", "Ѣ", "Ѭ", "Җ", "¿", "ټ"],
-    ["ψ", "ټ", "Ѣ", "Ͼ", "¶", "Ѯ", "★"],
-    ["k", "Ӭ", "҂", "æ", "ψ", "Ҋ", "Ω"],
-]
 
-target = ["Ҋ", "ψ", "҂", "Ω"]
-data = {"symbols": target}
+class Keypads:
+    def __init__(self) -> None:
+        self.arrays = [
+            ["Ϙ", "Ѧ", "ƛ", "ϰ", "Ѭ", "ϗ", "Ͽ"],
+            ["Ӭ", "Ϙ", "Ͽ", "Ҩ", "☆", "ϗ", "¿"],
+            ["©", "Ѽ", "Ҩ", "Җ", "Ԇ", "ƛ", "☆"],
+            ["k", "¶", "ƀ", "Ѭ", "Җ", "¿", "ټ"],
+            ["ψ", "ټ", "ƀ", "Ͼ", "¶", "Ѯ", "★"],
+            ["k", "Ӭ", "҂", "æ", "ψ", "Ҋ", "Ω"],
+        ]
 
-# print(set(target).issubset(arrays[0]))
-# print(set(target).issubset(arrays[1]))
-# print(set(target).issubset(arrays[2]))
-# print(set(target).issubset(arrays[3]))
-# print(set(target).issubset(arrays[4]))
-# print(set(target).issubset(arrays[5]))
+    def find_target_array(self, target) -> int:
+        for i in range(len(self.arrays)):
+            if set(target).issubset(self.arrays[i]):
+                return i
+        return -1
+
+    def compute_order(self, data: dict) -> list[str]:
+        order = []
+        symbols = data["symbols"]
+        index = self.find_target_array(symbols)
+        if index < 0:
+            raise IndexError("The array is wrong!")
+        for i in self.arrays[index]:
+            if i in symbols:
+                order.append(str(symbols.index(i) + 1))
+
+        return order
+
+    def write_output(self, p, answer_sequence) -> None:
+        p.sendline(" ".join(answer_sequence).encode())
 
 
-def find_target_array(target) -> int:
-    for i in range(len(arrays)):
-        if set(target).issubset(arrays[i]):
-            return i
-    return -1
-
-
-def compute_order(data: dict) -> list[str]:
-    order = []
-    symbols = data["symbols"]
-    for i in arrays[find_target_array(symbols)]:
-        if i in symbols:
-            order.append(str(symbols.index(i) + 1))
-
-    return order
+if __name__ == "__main__":
+    keypads = Keypads()
+    d = {"symbols": ["ټ", "ƀ", "Ͼ", "ψ"]}
+    print(keypads.find_target_array(d["symbols"]))
