@@ -20,7 +20,7 @@ def solve(data: dict, info: dict) -> list:
         elif colors.count('Blue') == 1:
             return ['1']
         elif colors.count('Yellow') > 1:
-            return ['1']
+            return ['4']
         else:
             return ['2']
     
@@ -43,4 +43,3 @@ def solve(data: dict, info: dict) -> list:
             return ['6']
         else:
             return ['4']        
-            
