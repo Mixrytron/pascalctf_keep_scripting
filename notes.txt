@@ -8,3 +8,38 @@ ___________
 |         |
 |_________|
 Data: {'amount': 4, 'colors': ['White', 'Black', 'White', 'Red']}
+
+🔧 Module: Complicated Wires
+___________
+|•═══════★|
+|•═══════★|
+|         |
+|         |
+|         |
+|         |
+|_________|
+Data: {'amount': 2, 'colors': ['White', 'Red'], 'leds': [True, True], 'stars': [True, True]}
+
+🔧 Module: Keypads
+___________
+| ___ ___ |
+| |☆| |Ϙ| |
+| |_| |_| |
+|         |
+| ___ ___ |
+| |Ӭ| |Ҩ| | 
+| |_| |_| |
+|_________|
+Data: {'symbols': ['☆', 'Ϙ', 'Ӭ', 'Ҩ']}
+
+🔧 Module: Button
+___________
+|   ___   |
+|  /   \  |
+| | ### | |
+|  \___/  |
+|         |
+|         |
+|  ═════  |
+|_________|
+Data: {'color': 'Yellow', 'text': 'Abort', 'color_strip': 'Blue'}
