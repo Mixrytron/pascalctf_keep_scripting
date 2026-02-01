@@ -4,12 +4,12 @@ symbols = "Ѽ æ © Ӭ Ҩ  Ҋ  ϗ  ϰ  Ԇ  Ϙ  Ѯ  ƛ  Ω  ¶  ¿  Ϭ  Ͼ  Ͽ  �
 class Keypads:
     def __init__(self) -> None:
         self.arrays = [
-            ["Ϙ", "Ѧ", "ƛ", "ϰ", "Ѭ", "ϗ", "Ͽ"],
+            ["Ϙ", "Ѧ", "ƛ", "Ϟ", "Ѭ", "ϗ", "Ͽ"],
             ["Ӭ", "Ϙ", "Ͽ", "Ҩ", "☆", "ϗ", "¿"],
             ["©", "Ѽ", "Ҩ", "Җ", "Ԇ", "ƛ", "☆"],
-            ["k", "¶", "ƀ", "Ѭ", "Җ", "¿", "ټ"],
+            ["б", "¶", "ƀ", "Ѭ", "Җ", "¿", "ټ"],
             ["ψ", "ټ", "ƀ", "Ͼ", "¶", "Ѯ", "★"],
-            ["k", "Ӭ", "҂", "æ", "ψ", "Ҋ", "Ω"],
+            ["б", "Ӭ", "҂", "æ", "ψ", "Ҋ", "Ω"],
         ]
 
     def find_target_array(self, target) -> int:
@@ -28,13 +28,12 @@ class Keypads:
             if i in symbols:
                 order.append(str(symbols.index(i) + 1))
 
-        return order
-
-    def write_output(self, p, answer_sequence) -> None:
-        p.sendline(" ".join(answer_sequence).encode())
+        return [" ".join(order)]
 
 
 if __name__ == "__main__":
     keypads = Keypads()
-    d = {"symbols": ["ټ", "ƀ", "Ͼ", "ψ"]}
+    # d = {"symbols": ["ټ", "ƀ", "Ͼ", "ψ"]}
+    # d = {"symbols": ["ƛ", "Ϟ", "Ѭ", "ϗ"]}
+    d = {"symbols": ["¶", "б", "Җ", "¿"]}
     print(keypads.find_target_array(d["symbols"]))

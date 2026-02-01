@@ -1,10 +1,15 @@
 from pwn import remote
 from keypads import Keypads
+from complicated_wires import CWire
 
 
-def main() -> None:
-    p = remote("scripting.ctf.pascalctf.it", 6004)
+def write_output(p, answer_sequence):
+    # p.sendline(" ".join(answer_sequence).encode())
+    for i in answer_sequence:
+        p.sendline(i.encode())
 
+
+def read_solve_cycle(p) -> None:
     bomb_info: dict = {}
     p.recvuntil(b"Serial Number: ")
     bomb_info["Serial Number"] = p.recvline().decode().strip()
@@ -37,10 +42,13 @@ def main() -> None:
             keypads = Keypads()
             answer_sequence = keypads.compute_order(data)
             print(answer_sequence)
-            keypads.write_output(p, answer_sequence)
-            p.interactive()
+            write_output(p, answer_sequence)
         case "Complicated Wires":
             print("it is Complicated Wires")
+            c_wire = CWire()
+            answer_sequence = c_wire.solve(data, bomb_info)
+            print(answer_sequence)
+            write_output(p, answer_sequence)
         case "Wires":
             print("it is Wires")
         case "Button":
@@ -48,9 +56,13 @@ def main() -> None:
         case _:
             print(f"something new: {module}")
 
-    # write data to the io
+    # p.sendline(b"")
+    p.interactive()
 
-    p.close()
+
+def main() -> None:
+    p = remote("scripting.ctf.pascalctf.it", 6004)
+    read_solve_cycle(p)
 
 
 if __name__ == "__main__":
