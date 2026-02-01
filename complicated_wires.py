@@ -38,6 +38,7 @@ class CWire:
                     data["leds"][i] is True,
                 ]
             )
+            print(wire)
             match self.WIRE_TO_LETTER[wire]:
                 case "C":
                     solution.append("cut")
@@ -46,16 +47,23 @@ class CWire:
                 case "S":
                     if info["Serial Number"][-1] == "7":
                         solution.append("cut")
+                    else:
+                        solution.append("skip")
                 case "P":
                     if "parallel" in info["Ports"]:
                         solution.append("cut")
+                    else:
+                        solution.append("skip")
                 case "B":
                     if int(info["Batteries"]) >= 2:
                         solution.append("cut")
+                    else:
+                        solution.append("skip")
 
         return solution
 
 
+# Testing
 if __name__ == "__main__":
     cw = CWire()
     d = {
