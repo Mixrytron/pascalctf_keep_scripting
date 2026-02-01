@@ -10,7 +10,7 @@ def write_output(p, answer_sequence):
         p.sendline(i.encode())
 
 
-def read_solve_cycle(p, bomb_info) -> None:
+def read_solve_cycle(p, bomb_info) -> int:
     p.recvuntil(b"Module: ")
     module = p.recvline().decode().strip()
     print(module)
@@ -33,8 +33,10 @@ def read_solve_cycle(p, bomb_info) -> None:
             answer_sequence = c_wire.solve(data, bomb_info)
             print(answer_sequence)
             write_output(p, answer_sequence)
+            # p.interactive()
         case "Wires":
             print("it is Wires")
+            return -1
         case "Button":
             # print("it is Button")
             button = Button()
@@ -45,6 +47,7 @@ def read_solve_cycle(p, bomb_info) -> None:
 
     p.sendline(b"")
     # p.interactive()
+    return 0
 
 
 def main() -> None:
@@ -68,7 +71,10 @@ def main() -> None:
     p.sendline(b"")
 
     for _ in range(100):
-        read_solve_cycle(p, bomb_info)
+        r = read_solve_cycle(p, bomb_info)
+        if r == -1:
+            p.close
+            return
 
     p.interactive()
 

@@ -45,7 +45,7 @@ class CWire:
                 case "D":
                     solution.append("skip")
                 case "S":
-                    if info["Serial Number"][-1] == "7":
+                    if int(info["Serial Number"][-1]) % 2 == 0:
                         solution.append("cut")
                     else:
                         solution.append("skip")
